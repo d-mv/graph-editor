@@ -1,0 +1,8 @@
+.Sharing__container {
+  display: flex;
+  height: 5rem;
+
+  &:hover {
+    height: fit-content;
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "env": {
+    "test": {
+      "presets": ["react-app", ["@babel/preset-react", { "runtime": "automatic" }]],
+      "plugins": [["@babel/plugin-proposal-private-methods", { "loose": true }]]
+    },
+    "development": {
+      "presets": ["@babel/preset-env", ["@babel/preset-react", { "runtime": "automatic" }]],
+      "plugins": [
+        ["@babel/plugin-proposal-private-methods", { "loose": true }],
+        ["@babel/plugin-proposal-class-properties", { "loose": true }],
+        ["@babel/plugin-proposal-private-property-in-object", { "loose": true }]
+      ]
+    },
+    "production": {
+      "presets": ["react-app", ["@babel/preset-react", { "runtime": "automatic" }]],
+      "plugins": [
+        ["react-remove-properties", { "properties": ["data-test", "data-testid", "dataTestId"] }],
+        ["@babel/plugin-proposal-private-methods", { "loose": true }]
+      ]
+    }
+  }
+}

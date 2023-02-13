@@ -1,0 +1,15 @@
+.Editor {
+	width: 50rem;
+  height: inherit;
+  color: var(--color-text);
+  overflow: hidden;
+  border-radius: var(--radius);
+    border: var(--border-passive);
+  
+  &:focus-within {
+    outline: none !important;
+    border: var(--border-active);
+  }
+} 
+
+

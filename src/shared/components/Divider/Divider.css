@@ -1,0 +1,13 @@
+.Divider__container {
+  display:grid;
+  place-items: center;
+  height: 100%;
+  width: .3rem;
+  padding-inline-end: .1rem;
+}
+
+.Divider__item {
+  width: .1rem;
+  height: 75%;
+  border-right: var(--border)
+}

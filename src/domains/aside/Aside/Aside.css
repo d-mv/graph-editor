@@ -1,0 +1,7 @@
+.Aside__container {
+  display: flex;
+  flex-flow: column;
+  width: fit-content;
+  height: 100%;
+  padding: 1rem;
+}

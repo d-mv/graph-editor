@@ -213,8 +213,6 @@ module.exports = function (webpackEnv) {
     },
   };
 
-  // eslint-disable-next-line no-console
-  console.log(paths.appIndexJs);
   return {
     target: ['browserslist'],
     // Webpack noise constrained to errors and warnings

@@ -1,0 +1,35 @@
+.Sharing__container {
+  display: flex;
+  flex-flow: column;
+  height: 6rem;
+  width: inherit;
+  padding: 1.6rem;
+  background-color: var(--color-secondary-4);
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  border-bottom: 1rem solid var(--color-back);
+  transition: var(--transition-slow);
+
+  &:hover {
+    height: fit-content;
+  }
+}
+
+.Sharing__line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Sharing__line_group {
+  display: flex;
+  :is(div, button) + :is(div, button) {
+    margin-inline-start: 1rem;
+  }
+}
+.Sharing__title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-block-end: 1.6rem;
+}

@@ -48,7 +48,10 @@ export function Editor() {
   }, [setValue]);
 
   useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log(size);
     editor.current?.updateOptions({ fontSize: size });
+    editor.current?.render();
   }, [size]);
 
   function getValue() {
@@ -102,7 +105,7 @@ export function Editor() {
     return () => {
       editor.current?.dispose();
     };
-  }, [setValue, size, updateValue]);
+  }, [setValue, updateValue]);
 
   return <div className='Editor' ref={divEl}></div>;
 }

@@ -5,4 +5,43 @@
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
+  padding: 0 1rem;
+  user-select: none;
+}
+
+.Header__row {
+  display: flex;
+  align-items: flex-end;
+  font-family: Gruppo;
+}
+.Header__graph {
+  color: var(--color-info-1);
+}
+.Header__editor {
+  font-weight: 600;
+  margin-inline-end: .5rem;
+}
+.Header__info {
+  padding: 0.4rem;
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  &:hover {
+    fill: var(--color-info-1);
+  }
+}
+
+.Header__github_button {
+  cursor: pointer;
+}
+
+.Header__github_icon {
+  height: 2.5rem;
+  width: 2.5rem;
+  display: flex;
+  fill: var(--color-primary-3);
+
+  &:hover {
+    fill: var(--color-info-1);
+  }
 }

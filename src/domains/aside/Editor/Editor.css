@@ -1,15 +1,13 @@
 .Editor {
-	width: 50rem;
-  height: inherit;
+  width: 50rem;
+  height: calc(100% - 10rem);
   color: var(--color-text);
   overflow: hidden;
   border-radius: var(--radius);
-    border: var(--border-passive);
-  
+  border: var(--border-passive);
+
   &:focus-within {
     outline: none !important;
     border: var(--border-active);
   }
-} 
-
-
+}

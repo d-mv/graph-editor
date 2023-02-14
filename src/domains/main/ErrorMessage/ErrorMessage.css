@@ -1,0 +1,24 @@
+.ErrorMessage__container {
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  right: 10%;
+  bottom: 30%;
+  display: grid;
+  place-items: center;
+  background-color: #686868;
+  padding: 2rem;
+  box-shadow: var(--shadow-1);
+  border-radius: var(--radius);
+}
+
+.ErrorMEssage__message {
+  display: flex;
+  flex-flow: column;
+
+  > p {
+    font-family: var(--font);
+    font-size: 2rem;
+    color: var(--color-white);
+  }
+}

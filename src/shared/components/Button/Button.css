@@ -1,0 +1,45 @@
+.Button__container {
+  padding: 0.5rem 1.3rem;
+  background-color: var(--color-primary-1);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  padding-block-end: 0.7rem;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-2);
+  width: auto;
+
+  &:hover {
+    background-color: var(--color-primary-2);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  &:disabled {
+    background: var(--color-primary-3);
+    cursor: not-allowed;
+
+    .Button_label {
+      color: var(--color-primary-2);
+    }
+    .Button_icon {
+      stroke: var(--color-primary-2);
+    }
+  }
+}
+
+.Button_label {
+  font-size: 1.6rem;
+  color: var(--color-white);
+  font-family: var(--font);
+  margin-inline-end: 1rem;
+}
+
+.Button_icon {
+  height: 1.8rem;
+  width: 1.8rem;
+  stroke: var(--color-white);
+}

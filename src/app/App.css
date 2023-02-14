@@ -13,8 +13,10 @@ html {
   overflow: hidden;
 }
 
-.row {
+.App__row {
+  display: flex;
   align-items: flex-start;
   width: inherit;
   height: inherit;
+  padding: 1rem;
 }

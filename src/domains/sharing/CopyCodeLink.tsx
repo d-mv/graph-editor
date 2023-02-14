@@ -1,8 +1,8 @@
 import { useRecoilValue } from 'recoil';
-import { inputState } from '../../../shared';
-import './Sharing.css';
 
-export function Sharing() {
+import { inputState, Button } from '../../shared';
+
+export function CopyCodeLink() {
   const value = useRecoilValue(inputState);
 
   function valueToCopylink() {
@@ -14,11 +14,6 @@ export function Sharing() {
   }
 
   return (
-    <div className='Sharing__container'>
-      <p>Sharing</p>
-      <div>
-        <button onClick={valueToCopylink}>copy link</button>
-      </div>
-    </div>
+    <Button isDisabled={!value} onClick={valueToCopylink} tooltip='Copy link with code' label='copy link' icon='link' />
   );
 }

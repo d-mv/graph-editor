@@ -39,6 +39,8 @@ export function Editor() {
 
   const size = useRecoilValue(fontSizeState);
 
+  const setSize = useSetRecoilState(fontSizeState);
+
   const editor = useRef<Optional<monaco.editor.IStandaloneCodeEditor>>();
 
   const updateValue = useCallback(() => {
@@ -48,8 +50,6 @@ export function Editor() {
   }, [setValue]);
 
   useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(size);
     editor.current?.updateOptions({ fontSize: size });
     editor.current?.render();
   }, [size]);
@@ -63,7 +63,15 @@ export function Editor() {
 
     if (!params.length) return '';
 
-    const inputCode = params[0].split('code=')[1];
+    const inputCode = params.find(p => p.startsWith('code'))?.split('code=')[1];
+
+    const fontSize = params.find(p => p.startsWith('fontSize'))?.split('fontSize=')[1];
+
+    if (fontSize) {
+      const sizeFromUrl = Number(fontSize);
+
+      if (!isNaN(sizeFromUrl)) setSize(sizeFromUrl);
+    }
 
     if (!inputCode) return '';
 
@@ -97,6 +105,10 @@ export function Editor() {
         selectionHighlight: true,
         fontLigatures: true,
         renderLineHighlight: 'line',
+        scrollbar: {
+          verticalScrollbarSize: 10,
+          horizontalScrollbarSize: 10,
+        },
       });
 
       editor.current.onDidChangeModelContent(updateValue);

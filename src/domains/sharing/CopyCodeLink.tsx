@@ -1,16 +1,18 @@
 import { useRecoilValue } from 'recoil';
 
-import { inputState, Button } from '../../shared';
+import { inputState, Button, fontSizeState } from '../../shared';
 
 export function CopyCodeLink() {
   const value = useRecoilValue(inputState);
+
+  const fontSize = useRecoilValue(fontSizeState);
 
   function valueToCopylink() {
     const location = window.location.origin;
 
     const base64Value = btoa(value);
 
-    navigator.clipboard.writeText(`${location}?code=${base64Value}`);
+    navigator.clipboard.writeText(`${location}?fontSize=${fontSize}&code=${base64Value}`);
   }
 
   return (

@@ -1,6 +1,6 @@
-export * from './aside';
+export * from './editor';
 
-export * from './main';
+export * from './diagram';
 
 export * from './header';
 

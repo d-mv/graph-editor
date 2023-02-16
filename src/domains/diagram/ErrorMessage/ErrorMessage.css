@@ -6,10 +6,9 @@
   bottom: 30%;
   display: grid;
   place-items: center;
-  background-color: #686868;
   padding: 2rem;
-  box-shadow: var(--shadow-1);
-  border-radius: var(--radius);
+  background-color: #68686800;
+  backdrop-filter: blur(1rem);
 }
 
 .ErrorMEssage__message {
@@ -18,7 +17,8 @@
 
   > p {
     font-family: var(--font);
+    font-weight: 600;
     font-size: 2rem;
-    color: var(--color-white);
+    color: var(--color-info-1);
   }
 }

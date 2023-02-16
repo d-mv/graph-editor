@@ -1,9 +1,8 @@
 import './App.css';
 import { Header, Aside, Main, Sharing } from '../domains';
-import { Divider, useAddress } from '../shared';
+import { Divider } from '../shared';
 
 export function App() {
-  useAddress();
   return (
     <div className='App__container'>
       <Header />

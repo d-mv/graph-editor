@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { AnyValue } from '@mv-d/toolbelt';
 import mermaid from 'mermaid';
+import panzoom from 'svg-pan-zoom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import './Diagram.css';
@@ -38,12 +39,34 @@ export function Diagram() {
     mermaid.diagrams;
   }, [value]);
 
+  useEffect(() => {
+    const svgEl = graphRef.current?.childNodes[0].childNodes[0] as AnyValue;
+
+    if (!svgEl || !value || message) return;
+
+    panzoom(svgEl, {
+      panEnabled: true,
+      // controlIconsEnabled: true,
+      zoomEnabled: true,
+      dblClickZoomEnabled: true,
+      mouseWheelZoomEnabled: true,
+      preventMouseEventsDefault: true,
+      zoomScaleSensitivity: 0.1,
+      fit: true,
+      center: true,
+    });
+    svgEl.setAttribute('height', '100%');
+    svgEl.style.maxWidth = '100%';
+  }, [message, value]);
+
   return (
     <div className='Diagram__container'>
       <div
         ref={graphRef}
         className='Diagram__graph'
-        dangerouslySetInnerHTML={{ __html: `<pre class="mermaid">${value}</pre>` }}
+        dangerouslySetInnerHTML={{
+          __html: `<pre id="mermaid" class="mermaid">${value}</pre>`,
+        }}
       />
       <ErrorMessage />
     </div>

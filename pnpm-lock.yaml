@@ -93,6 +93,7 @@ specifiers:
   semver: 7.3.5
   source-map-loader: 3.0.0
   style-loader: 3.3.1
+  svg-pan-zoom: ^3.6.1
   terser-webpack-plugin: 5.2.5
   ts-jest: 29.0.3
   typescript: 4.9.4
@@ -197,6 +198,7 @@ dependencies:
   semver: 7.3.5
   source-map-loader: 3.0.0_webpack@5.64.4
   style-loader: 3.3.1_webpack@5.64.4
+  svg-pan-zoom: 3.6.1
   terser-webpack-plugin: 5.2.5_webpack@5.64.4
   ts-jest: 29.0.3_af4m47qfnwmcfclxvry3xnbzfy
   typescript: 4.9.4
@@ -9983,6 +9985,10 @@ packages:
   /supports-preserve-symlinks-flag/1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+    dev: false
+
+  /svg-pan-zoom/3.6.1:
+    resolution: {integrity: sha512-JaKkGHHfGvRrcMPdJWkssLBeWqM+Isg/a09H7kgNNajT1cX5AztDTNs+C8UzpCxjCTRrG34WbquwaovZbmSk9g==}
     dev: false
 
   /svg-parser/2.0.4:

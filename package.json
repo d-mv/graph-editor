@@ -94,6 +94,7 @@
     "semver": "7.3.5",
     "source-map-loader": "3.0.0",
     "style-loader": "3.3.1",
+    "svg-pan-zoom": "^3.6.1",
     "terser-webpack-plugin": "5.2.5",
     "ts-jest": "29.0.3",
     "typescript": "4.9.4",
@@ -106,8 +107,7 @@
     "workbox-webpack-plugin": "6.4.1"
   },
   "scripts": {
-    "start2": "NODE_ENV=development node scripts/start.js",
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "start": "NODE_ENV=development node scripts/start.js",
     "build": "NODE_ENV=production node scripts/build.js",
     "test": "NODE_ENV=test node scripts/test.js",
     "install-logger": "cp node_modules/@mv-d/toolbelt/dist/logger.js public/logger.js",

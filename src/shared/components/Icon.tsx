@@ -1,5 +1,5 @@
 import { CSSProperties, PropsWithoutRef } from 'react';
-import { TbExternalLink, TbCopy, TbMarkdown, TbDownload } from 'react-icons/tb';
+import { TbExternalLink, TbCopy, TbChevronsUp, TbMarkdown, TbDownload } from 'react-icons/tb';
 import { AiOutlineGithub, AiOutlineInfoCircle } from 'react-icons/ai';
 import { makeMatch } from '@mv-d/toolbelt';
 
@@ -11,6 +11,7 @@ export const Icons = makeMatch(
     download: TbDownload,
     info: AiOutlineInfoCircle,
     github: AiOutlineGithub,
+    chevronUp: TbChevronsUp,
   },
   () => <div />,
 );

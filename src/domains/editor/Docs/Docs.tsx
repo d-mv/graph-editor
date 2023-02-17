@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
+import { LINKS_DICTIONARY } from '../../../data';
 
 import { WithTooltip } from '../../../shared';
 import { inputState } from '../../../shared/store';
@@ -12,7 +13,7 @@ export function Docs() {
 
   useEffect(() => {
     if (value) {
-      const s = value.split('\n')[0];
+      const s = value.split('\n')[0].trim();
 
       if (s && s !== section) setSection(s);
     } else {
@@ -24,7 +25,7 @@ export function Docs() {
     <div className='Docs__container'>
       <WithTooltip tooltip={`Mermaid docs${section ? ' ' + section : ''}`}>
         <a
-          href={section ? `https://mermaid.js.org/syntax/${section}.html` : 'https://mermaid.js.org/intro/'}
+          href={`https://mermaid.js.org/${LINKS_DICTIONARY[section]}`}
           target='blank'
           referrerPolicy='no-referrer'
           className='Docs__link'

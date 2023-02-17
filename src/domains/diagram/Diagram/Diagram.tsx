@@ -40,7 +40,7 @@ export function Diagram() {
   }, [value]);
 
   useEffect(() => {
-    const svgEl = graphRef.current?.childNodes[0].childNodes[0] as AnyValue;
+    const svgEl = graphRef.current?.getElementsByTagName('svg')[0] as AnyValue;
 
     if (!svgEl || !value || message) return;
 

@@ -6,3 +6,10 @@
   background-color: var(--color-secondary-4);
   width: 100%;
 }
+
+.EditorConfigPanel__row {
+  display: flex;
+  :is(div) + :is(div) {
+    margin-inline-start: 1rem;
+  }
+}

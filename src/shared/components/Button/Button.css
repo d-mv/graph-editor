@@ -41,5 +41,12 @@
 .Button_icon {
   height: 1.8rem;
   width: 1.8rem;
+}
+
+.Button__icon_stroke {
   stroke: var(--color-white);
+}
+
+.Button__icon_fill {
+  fill: var(--color-white);
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { LINKS_DICTIONARY } from '../../../data';
 
-import { WithTooltip } from '../../../shared';
+import { Icon, WithTooltip } from '../../../shared';
 import { inputState } from '../../../shared/store';
 import './Docs.css';
 
@@ -30,7 +30,8 @@ export function Docs() {
           referrerPolicy='no-referrer'
           className='Docs__link'
         >
-          docs
+          <Icon icon='docs' className='Docs__link_icon' />
+          <p className='Docs__link_title'>docs</p>
         </a>
       </WithTooltip>
     </div>

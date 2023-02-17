@@ -1,9 +1,8 @@
 import { useRecoilValue } from 'recoil';
-import html2canvas from 'html2canvas';
 
-import { Button, graphErrorMessageState, graphRefState } from '../../shared';
+import { Button, graphRefState, graphErrorMessageState } from '../../shared';
 
-export function DownloadAsJPEG() {
+export function DownloadAsSVG() {
   const graphRef = useRecoilValue(graphRefState);
 
   const message = useRecoilValue(graphErrorMessageState);
@@ -11,21 +10,23 @@ export function DownloadAsJPEG() {
   async function handleClick() {
     if (!graphRef) return;
 
-    const canvas = await html2canvas(graphRef, { removeContainer: true });
-
-    const data = canvas.toDataURL('image/jpg');
+    const svg = graphRef.getElementsByTagName('svg')[0];
 
     const link = document.createElement('a');
 
+    const serializer = new XMLSerializer();
+
+    const file = new Blob([serializer.serializeToString(svg)], { type: 'text/plain' });
+
     if (typeof link.download === 'string') {
-      link.href = data;
-      link.download = 'diagram.jpg';
+      link.href = URL.createObjectURL(file);
+      link.download = 'diagram.svg';
 
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } else {
-      window.open(data);
+      window.open(String(svg));
     }
   }
 
@@ -34,9 +35,9 @@ export function DownloadAsJPEG() {
       iconFill
       isDisabled={!graphRef || Boolean(message)}
       onClick={handleClick}
-      // tooltip='Download diagram as JPEG'
-      label='JPEG'
-      icon='jpeg'
+      // tooltip='Download diagram as SVG'
+      label='SVG'
+      icon='svg'
     />
   );
 }

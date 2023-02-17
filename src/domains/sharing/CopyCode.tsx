@@ -10,6 +10,12 @@ export function CopyCode() {
   }
 
   return (
-    <Button isDisabled={!value} onClick={handleClick} tooltip='Copy code from editor' label='copy code' icon='copy' />
+    <Button
+      isDisabled={!value}
+      onClick={handleClick}
+      // tooltip='Copy code from editor'
+      label='copy code'
+      icon='copy'
+    />
   );
 }

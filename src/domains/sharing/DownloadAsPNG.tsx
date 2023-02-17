@@ -31,11 +31,12 @@ export function DownloadAsPNG() {
 
   return (
     <Button
+      iconFill
       isDisabled={!graphRef || Boolean(message)}
       onClick={handleClick}
-      tooltip='Download diagram as PNG'
+      // tooltip='Download diagram as PNG'
       label='PNG'
-      icon='download'
+      icon='png'
     />
   );
 }

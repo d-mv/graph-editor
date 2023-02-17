@@ -1,3 +1,5 @@
+import { ifTrue } from '@mv-d/toolbelt';
+import clsx from 'clsx';
 import { Icon, IconProps } from '../Icon';
 import { WithTooltip } from '../Tooltip';
 import './Button.css';
@@ -8,13 +10,14 @@ interface ButtonProps {
   label: string;
   icon: IconProps['icon'];
   tooltip?: string;
+  iconFill?: boolean;
 }
 
-export function Button({ onClick, label, icon, tooltip, isDisabled }: ButtonProps) {
+export function Button({ onClick, label, icon, tooltip, isDisabled, iconFill }: ButtonProps) {
   const buttonElement = (
     <button disabled={isDisabled} className='Button__container' onClick={onClick} type='button'>
       <p className='Button_label'>{label}</p>
-      <Icon icon={icon} className='Button_icon' />
+      <Icon icon={icon} className={clsx('Button_icon', ifTrue(iconFill, 'Button__icon_fill', 'Button__icon_stroke'))} />
     </button>
   );
 

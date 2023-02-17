@@ -5,6 +5,7 @@ import { CopyMarkdown } from '../CopyMarkdown';
 import { DownloadAsJPEG } from '../DownloadAsJPEG';
 import { DownloadAsPNG } from '../DownloadAsPNG';
 import { Icon } from '../../../shared';
+import { DownloadAsSVG } from '../DownloadAsSVG';
 
 export function Sharing() {
   return (
@@ -18,8 +19,10 @@ export function Sharing() {
           <CopyMarkdown />
         </div>
         <div id='sharing-group-right' className='Sharing__line_group'>
+          <p className='Sharing__line_save'>Save as</p>
           <DownloadAsJPEG />
           <DownloadAsPNG />
+          <DownloadAsSVG />
         </div>
       </div>
     </div>

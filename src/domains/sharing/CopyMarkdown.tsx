@@ -14,7 +14,7 @@ export function CopyMarkdown() {
     <Button
       isDisabled={!value}
       onClick={handleClick}
-      tooltip='Copy code as markdown'
+      // tooltip='Copy code as markdown'
       label='copy markdown'
       icon='markdown'
     />

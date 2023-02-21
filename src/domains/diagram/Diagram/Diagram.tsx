@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { AnyValue } from '@mv-d/toolbelt';
-import mermaid from 'mermaid';
+import { AnyValue, Optional } from '@mv-d/toolbelt';
+// @ts-ignore -- temp
+import mermaid from 'mermaid/dist/mermaid.esm.mjs';
 import panzoom from 'svg-pan-zoom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
@@ -18,6 +19,14 @@ export function Diagram() {
   const graphRef = useRef<HTMLDivElement>(null);
 
   const [message, setMessage] = useRecoilState(graphErrorMessageState);
+
+  function getSvgElement() {
+    return graphRef.current?.getElementsByTagName('svg')[0] as Optional<SVGElement>;
+  }
+
+  useEffect(() => {
+    if (getSvgElement() && message) setMessage('');
+  }, [message, graphRef, value, setMessage]);
 
   function handleErrors(err: AnyValue) {
     setMessage(err.message);

@@ -1,5 +1,14 @@
 import { CSSProperties, PropsWithoutRef } from 'react';
-import { TbExternalLink, TbCopy, TbChevronsUp, TbMarkdown, TbDownload } from 'react-icons/tb';
+import {
+  TbExternalLink,
+  TbCopy,
+  TbChevronsUp,
+  TbMarkdown,
+  TbDownload,
+  TbZoomIn,
+  TbZoomCheck,
+  TbZoomOut,
+} from 'react-icons/tb';
 import { AiOutlineGithub, AiOutlineInfoCircle, AiOutlineSave } from 'react-icons/ai';
 import { ImSvg, ImFilePicture } from 'react-icons/im';
 import { SiJpeg } from 'react-icons/si';
@@ -20,6 +29,9 @@ export const Icons = makeMatch(
     png: ImFilePicture,
     save: AiOutlineSave,
     docs: TiDocumentText,
+    zoomIn: TbZoomIn,
+    zoomCenter: TbZoomCheck,
+    zoomOut: TbZoomOut,
   },
   () => <div />,
 );

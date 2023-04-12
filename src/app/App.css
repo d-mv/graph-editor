@@ -17,6 +17,6 @@ html {
   display: flex;
   align-items: flex-start;
   width: inherit;
-  height: inherit;
+  height: calc(100% - 5rem);
   padding: 1rem;
 }

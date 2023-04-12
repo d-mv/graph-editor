@@ -1,5 +1,5 @@
 import './App.css';
-import { Header, Aside, Main, Sharing } from '../domains';
+import { Header, Aside, Sharing, Diagram } from '../domains';
 import { Divider } from '../shared';
 
 export function App() {
@@ -9,7 +9,7 @@ export function App() {
       <div className='App__row'>
         <Aside />
         <Divider />
-        <Main />
+        <Diagram />
       </div>
       <Sharing />
     </div>

@@ -29,14 +29,5 @@ export function DownloadAsJPEG() {
     }
   }
 
-  return (
-    <Button
-      iconFill
-      isDisabled={!graphRef || Boolean(message)}
-      onClick={handleClick}
-      // tooltip='Download diagram as JPEG'
-      label='JPEG'
-      icon='jpeg'
-    />
-  );
+  return <Button iconFill isDisabled={!graphRef || Boolean(message)} onClick={handleClick} label='JPEG' icon='jpeg' />;
 }

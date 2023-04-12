@@ -1,9 +1,10 @@
 .ErrorMessage__container {
   position: absolute;
-  top: 30%;
-  left: 10%;
-  right: 10%;
-  bottom: 30%;
+  top: 0;
+ left:0;
+  right: 0;
+  bottom: 0;
+  overflow: scroll;
   display: grid;
   place-items: center;
   padding: 2rem;
@@ -18,7 +19,7 @@
   > p {
     font-family: var(--font);
     font-weight: 600;
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--color-info-1);
   }
 }

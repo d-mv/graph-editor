@@ -3,6 +3,6 @@
   flex-flow: column;
   align-items: center;
   width: 52rem;
-  height: 100%;
+  height: inherit;
   padding-inline-end: 1rem;
 }

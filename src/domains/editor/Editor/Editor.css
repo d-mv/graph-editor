@@ -1,6 +1,6 @@
 .Editor {
   width: 50rem;
-  height: calc(100% - 10rem);
+  height: inherit;
   color: var(--color-text);
   overflow: hidden;
   border-radius: var(--radius);

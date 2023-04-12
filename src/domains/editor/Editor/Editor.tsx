@@ -8,27 +8,23 @@ import './Editor.css';
 import { fontSizeState, inputState } from '../../../shared';
 
 // @ts-ignore -- temp
-self.MonacoEnvironment = {
-  getWorkerUrl: function (_moduleId: AnyValue, label: string) {
-    if (label === 'json') {
-      return './json.worker.bundle.js';
-    }
-
-    if (label === 'css' || label === 'scss' || label === 'less') {
-      return './css.worker.bundle.js';
-    }
-
-    if (label === 'html' || label === 'handlebars' || label === 'razor') {
-      return './html.worker.bundle.js';
-    }
-
-    if (label === 'typescript' || label === 'javascript') {
-      return './ts.worker.bundle.js';
-    }
-
-    return './editor.worker.bundle.js';
-  },
-};
+// self.MonacoEnvironment = {
+//   getWorkerUrl: function (_moduleId: AnyValue, label: string) {
+//     if (label === 'json') {
+//       return './json.worker.bundle.js';
+//     }
+//     if (label === 'css' || label === 'scss' || label === 'less') {
+//       return './css.worker.bundle.js';
+//     }
+//     if (label === 'html' || label === 'handlebars' || label === 'razor') {
+//       return './html.worker.bundle.js';
+//     }
+//     if (label === 'typescript' || label === 'javascript') {
+//       return './ts.worker.bundle.js';
+//     }
+//     return './editor.worker.bundle.js';
+//   },
+// };
 
 initEditor(monaco);
 
@@ -86,6 +82,9 @@ export function Editor() {
 
   useEffect(() => {
     if (divEl.current && !editor.current) {
+      // eslint-disable-next-line no-console
+      console.log('hi');
+
       const preValue = getValue();
 
       if (preValue) setValue(preValue);

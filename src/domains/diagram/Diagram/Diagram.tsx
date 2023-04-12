@@ -1,12 +1,13 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnyValue } from '@mv-d/toolbelt';
 import mermaid from 'mermaid';
-import panzoom from 'svg-pan-zoom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import './Diagram.css';
 import { graphErrorMessageState, graphRefState, inputState } from '../../../shared';
 import { ErrorMessage } from '../ErrorMessage';
+import { Controls } from '../Controls';
 
 mermaid.init();
 
@@ -17,57 +18,56 @@ export function Diagram() {
 
   const graphRef = useRef<HTMLDivElement>(null);
 
-  const [message, setMessage] = useRecoilState(graphErrorMessageState);
+  const setMessage = useSetRecoilState(graphErrorMessageState);
 
-  function handleErrors(err: AnyValue) {
-    setMessage(err.message);
-  }
+  const clearErrorMessage = useResetRecoilState(graphErrorMessageState);
+
+  const handleErrorMessage = useCallback(
+    (err: AnyValue) => {
+      setMessage(err.message);
+    },
+    [setMessage],
+  );
 
   useEffect(() => {
-    mermaid.setParseErrorHandler(handleErrors);
-  }, []);
+    mermaid.setParseErrorHandler(handleErrorMessage);
+  }, [handleErrorMessage, setMessage]);
 
   useEffect(() => {
     if (graphRef.current) setGraphRef(graphRef.current);
   }, [graphRef, setGraphRef]);
 
   useEffect(() => {
-    if (message) setMessage('');
+    async function renderDiagram() {
+      clearErrorMessage();
 
-    mermaid.contentLoaded();
+      mermaid.contentLoaded();
 
-    mermaid.diagrams;
-  }, [value]);
+      const svg = graphRef.current;
 
-  useEffect(() => {
-    const svgEl = graphRef.current?.getElementsByTagName('svg')[0] as AnyValue;
+      if (svg) {
+        const result = await mermaid.render('mermaid', value, svg);
 
-    if (!svgEl || !value || message) return;
+        svg.innerHTML = result.svg;
+      }
+    }
 
-    panzoom(svgEl, {
-      panEnabled: true,
-      // controlIconsEnabled: true,
-      zoomEnabled: true,
-      dblClickZoomEnabled: true,
-      mouseWheelZoomEnabled: true,
-      preventMouseEventsDefault: true,
-      zoomScaleSensitivity: 0.1,
-      fit: true,
-      center: true,
-    });
-    svgEl.setAttribute('height', '100%');
-    svgEl.style.maxWidth = '100%';
-  }, [message, value]);
+    if (value) renderDiagram();
+    else clearErrorMessage();
+  }, [clearErrorMessage, value]);
 
   return (
     <div className='Diagram__container'>
-      <div
-        ref={graphRef}
-        className='Diagram__graph'
-        dangerouslySetInnerHTML={{
-          __html: `<pre id="mermaid" class="mermaid">${value}</pre>`,
-        }}
-      />
+      <TransformWrapper initialScale={3} centerZoomedOut={true} disablePadding={true}>
+        {utils => (
+          <>
+            <Controls {...utils} />
+            <TransformComponent>
+              <div ref={graphRef} className='Diagram__graph' id='container' />
+            </TransformComponent>
+          </>
+        )}
+      </TransformWrapper>
       <ErrorMessage />
     </div>
   );

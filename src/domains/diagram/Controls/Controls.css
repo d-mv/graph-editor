@@ -1,0 +1,9 @@
+.Controls__container {
+	display: flex;
+	flex-flow: column;
+	width: fit-content;
+	  position: absolute;
+	  right: 1rem;
+	  top: 1rem;
+	  z-index: 100;
+}

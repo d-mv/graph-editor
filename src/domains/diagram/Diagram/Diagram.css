@@ -5,21 +5,30 @@
 }
 
 .Diagram__graph {
-  width: 100%;
-  height: 100%;
+  width: inherit;
+  height: inherit;
   position: relative;
   overflow: scroll;
 
-  > .mermaid {
-    height: calc(100% - 5rem);
-    display: grid;
-    width: auto;
-    place-items: center;
-    position: relative;
+  > #dmermaid {
+    display: none;
+  }
 
+  > #mermaid {
+    height: inherit;
+    widht: inherit;
+    /* display: grid; */
+    /* place-items: center; */
+    /* position: relative; */
   }
 }
 
 #svg-pan-zoom-controls {
-  /* transform: translate(50%, 100%) scale(0.8); */
+  transform: translate(50%, 100%) scale(0.8);
+}
+
+.react-transform-wrapper {
+  height: inherit;
+  width: inherit;
+  z-index: 1;
 }

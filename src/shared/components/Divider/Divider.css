@@ -1,7 +1,7 @@
 .Divider__container {
   display:grid;
   place-items: center;
-  height: inherit;
+  height: 100%;
   width: .3rem;
   padding-inline-end: .1rem;
 }

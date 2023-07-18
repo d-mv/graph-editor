@@ -1,8 +1,0 @@
-.Aside__container {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  width: 52rem;
-  height: inherit;
-  padding-inline-end: 1rem;
-}

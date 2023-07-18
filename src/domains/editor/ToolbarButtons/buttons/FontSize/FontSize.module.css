@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  flex-flow: row nowrap;
+  position: relative;
+  align-items: center;
+  white-space: nowrap;
+
+  * {
+    font-family: var(--font);
+  }
+}
+
+.item {
+  padding: .5rem 1rem;
+  height: fit-content;
+  width: fit-content;
+  cursor: pointer;
+  transition: var(--transition);
+
+  &:hover {
+    background-color: var(--color-accent-1);
+    color: var(--color-white);
+  }
+}
+
+.list {
+  width: auto;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-flow: column;
+}
+
+.dropdown {
+  position: absolute;
+  z-index: 100;
+  background: var(--color-white);
+  box-shadow: var(--shadow-1);
+  border: var(--border);
+  right: 0;
+  top: 3.3rem;
+  animation-duration: .2s;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-inline-end: 1rem;
+}
+
+.button {
+  padding: .5rem 1rem;
+  border: var(--border);
+  cursor: pointer;
+}

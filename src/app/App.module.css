@@ -1,0 +1,26 @@
+html {
+  --background-color: #1b1919;
+  --background-color-lighter: #312e2e;
+  --color: #c1c1c1;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-areas:
+    'header header header'
+    'editor diagram diagram'
+    'footer footer footer';
+  grid-template-columns: var(--side-panel-width) auto;
+  grid-template-rows: 5rem auto 5rem;
+  overflow: hidden;
+}
+
+.side-panel-open {
+  --side-panel-width: clamp(20cqi, 50rem, 45cqi);
+}
+
+.side-panel-closed {
+  --side-panel-width: 5rem;
+}

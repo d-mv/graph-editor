@@ -1,7 +1,7 @@
 import { AnyValue } from '@mv-d/toolbelt';
 import { MutableRefObject, useEffect } from 'react';
 
-import { MaybeNull } from '../../types';
+import { MaybeNull } from '../types'
 
 export function useOnClickOutside(
   refs: MutableRefObject<MaybeNull<HTMLDivElement | HTMLButtonElement>>[],

@@ -1,8 +1,9 @@
 import { useRecoilValue } from 'recoil';
-import { inputState, fontSizeState } from '../store';
+
+import { editorInputState, fontSizeState } from '../state'
 
 export function useCopyCodeAsUrl() {
-  const value = useRecoilValue(inputState);
+  const value = useRecoilValue(editorInputState)
 
   const fontSize = useRecoilValue(fontSizeState);
 

@@ -1,0 +1,30 @@
+.container {
+  display: grid;
+  place-items: center;
+  padding: 0.5rem;
+
+  & svg {
+    height: 2rem;
+    width: 2rem;
+    stroke: var(--color-primary-3);
+  }
+
+  &:hover {
+    & svg {
+      stroke: var(--color-primary-2);
+    }
+  }
+}
+
+.closed {
+  animation: rotate 0.3s ease-in-out forwards;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}

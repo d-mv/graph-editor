@@ -1,0 +1,16 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  grid-area: toolbar;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  > * {
+    margin-inline-start: 2rem;
+  }
+
+  > *:first-child {
+    margin-inline-start: 0rem;
+  }
+}

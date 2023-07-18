@@ -1,0 +1,67 @@
+.container {
+  grid-area: footer;
+}
+
+.growing-container {
+  display: flex;
+  flex-flow: column;
+  height: 5rem;
+  width: 100%;
+  padding: 1.6rem;
+  background-color: var(--color-secondary-4);
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  border-bottom: 1rem solid var(--color-back);
+  transition: height 0.3s linear;
+  z-index: 10;
+
+  &:hover {
+    animation: grow 0.3s ease-in-out forwards;
+
+    .chevron {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.line_group {
+  display: flex;
+  align-items: center;
+  :is(div, button) + :is(div, button) {
+    margin-inline-start: 1rem;
+  }
+}
+.title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-block-end: 1.6rem;
+}
+
+.chevron {
+  position: inherit;
+  height: 2rem;
+  width: 2rem;
+  left: calc(50% - 1rem);
+  stroke: var(--color-primary-3);
+}
+
+@keyframes grow {
+  0% {
+    height: 6rem;
+  }
+  100% {
+    height: 11rem;
+  }
+}
+
+.line_save {
+  font-size: 1.6rem;
+  margin-inline-end: 1rem;
+}

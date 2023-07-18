@@ -1,11 +1,15 @@
-import { useRef, useEffect, useCallback } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import * as monaco from 'monaco-editor';
-import initEditor from 'monaco-mermaid';
-import { AnyValue, Optional } from '@mv-d/toolbelt';
+import classes from './Editor.module.css'
+import { editorInputState, fontSizeState } from '@shared/state'
+// import { fontSizeState, inputState } from '@shared/store'
 
-import './Editor.css';
-import { fontSizeState, inputState } from '../../../shared';
+import { AnyValue, Optional } from '@mv-d/toolbelt'
+import * as monaco from 'monaco-editor'
+import initEditor from 'monaco-mermaid'
+import { useCallback, useEffect, useRef } from 'react'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+
+// import { fontSizeState, inputState } from '../../../shared'
+// import './Editor.css'
 
 // @ts-ignore -- temp
 // self.MonacoEnvironment = {
@@ -26,68 +30,68 @@ import { fontSizeState, inputState } from '../../../shared';
 //   },
 // };
 
-initEditor(monaco);
+initEditor(monaco)
 
 export function Editor() {
-  const divEl = useRef<HTMLDivElement>(null);
+  const divEl = useRef<HTMLDivElement>(null)
 
-  const setValue = useSetRecoilState(inputState);
+  const setValue = useSetRecoilState(editorInputState)
 
-  const size = useRecoilValue(fontSizeState);
+  const size = useRecoilValue(fontSizeState)
 
-  const setSize = useSetRecoilState(fontSizeState);
+  const setSize = useSetRecoilState(fontSizeState)
 
-  const editor = useRef<Optional<monaco.editor.IStandaloneCodeEditor>>();
+  const editor = useRef<Optional<monaco.editor.IStandaloneCodeEditor>>()
 
   const updateValue = useCallback(() => {
-    const newValue = editor.current?.getValue() ?? '';
+    const newValue = editor.current?.getValue() ?? ''
 
-    setValue(newValue);
-  }, [setValue]);
+    setValue(newValue)
+  }, [setValue])
 
   useEffect(() => {
-    editor.current?.updateOptions({ fontSize: size });
-    editor.current?.render();
-  }, [size]);
+    editor.current?.updateOptions({ fontSize: size })
+    editor.current?.render()
+  }, [size])
 
   function getValue() {
-    const searchQuery = window.location.search;
+    const searchQuery = window.location.search
 
-    if (searchQuery[0] !== '?') return '';
+    if (searchQuery[0] !== '?') return ''
 
-    const params = searchQuery.slice(1).split('&');
+    const params = searchQuery.slice(1).split('&')
 
-    if (!params.length) return '';
+    if (!params.length) return ''
 
-    const inputCode = params.find(p => p.startsWith('code'))?.split('code=')[1];
+    const inputCode = params.find((p) => p.startsWith('code'))?.split('code=')[1]
 
-    const fontSize = params.find(p => p.startsWith('fontSize'))?.split('fontSize=')[1];
+    const fontSize = params.find((p) => p.startsWith('fontSize'))?.split('fontSize=')[1]
 
     if (fontSize) {
-      const sizeFromUrl = Number(fontSize);
+      const sizeFromUrl = Number(fontSize)
 
-      if (!isNaN(sizeFromUrl)) setSize(sizeFromUrl);
+      if (!isNaN(sizeFromUrl)) setSize(sizeFromUrl)
     }
 
-    if (!inputCode) return '';
+    if (!inputCode) return ''
 
     try {
-      const decodedValue = atob(inputCode);
+      const decodedValue = atob(inputCode)
 
-      return decodedValue;
+      return decodedValue
     } catch (err) {
-      return '';
+      return ''
     }
   }
 
   useEffect(() => {
     if (divEl.current && !editor.current) {
       // eslint-disable-next-line no-console
-      console.log('hi');
+      console.log('hi')
 
-      const preValue = getValue();
+      const preValue = getValue()
 
-      if (preValue) setValue(preValue);
+      if (preValue) setValue(preValue)
 
       editor.current = monaco.editor.create(divEl.current, {
         value: preValue,
@@ -108,15 +112,15 @@ export function Editor() {
           verticalScrollbarSize: 10,
           horizontalScrollbarSize: 10,
         },
-      });
+      })
 
-      editor.current.onDidChangeModelContent(updateValue);
+      editor.current.onDidChangeModelContent(updateValue)
     }
 
     return () => {
-      editor.current?.dispose();
-    };
-  }, [setValue, updateValue]);
+      editor.current?.dispose()
+    }
+  }, [setValue, updateValue])
 
-  return <div className='Editor' ref={divEl}></div>;
+  return <div ref={divEl} className={classes.container} />
 }

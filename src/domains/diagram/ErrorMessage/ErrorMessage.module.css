@@ -1,7 +1,7 @@
-.ErrorMessage__container {
+.container {
   position: absolute;
   top: 0;
- left:0;
+  left: 0;
   right: 0;
   bottom: 0;
   overflow: scroll;
@@ -12,12 +12,11 @@
   backdrop-filter: blur(1rem);
 }
 
-.ErrorMEssage__message {
+.message {
   display: flex;
   flex-flow: column;
 
   > p {
-    font-family: var(--font);
     font-weight: 600;
     font-size: 1.8rem;
     color: var(--color-info-1);

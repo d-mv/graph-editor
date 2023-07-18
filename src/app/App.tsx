@@ -1,13 +1,14 @@
-import { SidePanel } from '@domains/editor'
-import { Footer } from '@domains/footer'
-
-import classes from './App.module.css'
-import { Main } from '@domains/diagram'
-import { Header } from '@domains/header'
 import { ifTrue } from '@mv-d/toolbelt'
-import { sidePanelIsOpenState } from '@shared/state'
 import clsx from 'clsx'
 import { useRecoilValue } from 'recoil'
+
+import { Main } from '@domains/diagram'
+import { SidePanel } from '@domains/editor'
+import { Footer } from '@domains/footer'
+import { Header } from '@domains/header'
+import { sidePanelIsOpenState } from '@shared/state'
+
+import classes from './App.module.css'
 
 export function App() {
   const isSidePanelOpen = useRecoilValue(sidePanelIsOpenState)

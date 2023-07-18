@@ -1,0 +1,25 @@
+.container {
+  display: grid;
+  place-items: center;
+  padding: 0.8rem;
+  margin: 0.4rem;
+  border-radius: 0.2rem;
+  background-color: var(--color-secondary-3);
+  transition: var(--transition);
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: var(--color-accent-2);
+    .icon {
+      stroke: #fff;
+    }
+  }
+}
+
+.icon {
+  height: 2.5rem;
+  width: 2.5rem;
+  stroke-width: 0.1rem;
+  stroke: var(--color-primary-2);
+  transition: var(--transition);
+}

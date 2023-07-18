@@ -1,15 +1,15 @@
-import { Icon, IconProps } from '../../../../shared';
-import './ControlButton.css';
+import classes from './ControlButton.module.css'
+import { Icon, Icons } from '@shared/components'
 
 interface Props {
-  onClick: () => void;
-  icon: IconProps;
+  onClick: () => void
+  icon: Icons
 }
 
 export function ControlButton({ onClick, icon }: Props) {
   return (
-    <button className='ControlButton__button' onClick={() => onClick()}>
-      <Icon icon={icon.icon} className='ControlButton__icon' />
+    <button type='button' className={classes.container} onClick={onClick}>
+      <Icon icon={icon} className={classes.icon} />
     </button>
-  );
+  )
 }

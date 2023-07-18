@@ -117,7 +117,7 @@
 
 .tooltip-content {
   padding: .4rem;
-  font-family: var(--font);
+  font-family: var(--font-family);
   font-size: 1vw;
   font-weight: 300;
 }

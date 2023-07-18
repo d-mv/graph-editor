@@ -1,4 +1,4 @@
-.Header__container {
+.container {
   grid-area: header;
   display: flex;
   height: 5rem;
@@ -10,39 +10,39 @@
   user-select: none;
 }
 
-.Header__row {
+.row {
   display: flex;
   align-items: flex-end;
   font-family: Gruppo;
 }
-.Header__graph {
-  color: var(--color-info-1);
+.graph {
+  color: var(--color-accent-1);
 }
-.Header__editor {
+.editor {
   font-weight: 600;
   margin-inline-end: .5rem;
 }
-.Header__info {
+.info {
   padding: 0.4rem;
   height: 2rem;
   width: 2rem;
   display: flex;
   &:hover {
-    fill: var(--color-info-1);
+    fill: var(--color-accent-1);
   }
 }
 
-.Header__github_button {
+.github_button {
   cursor: pointer;
 }
 
-.Header__github_icon {
+.github_icon {
   height: 2.5rem;
   width: 2.5rem;
   display: flex;
   fill: var(--color-primary-3);
 
   &:hover {
-    fill: var(--color-info-1);
+    fill: var(--color-accent-1);
   }
 }

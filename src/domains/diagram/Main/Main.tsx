@@ -1,18 +1,14 @@
-import classes from './Main.module.css'
-
 import { AnyValue } from '@mv-d/toolbelt'
 import mermaid from 'mermaid'
 import { useCallback, useEffect, useRef } from 'react'
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch'
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil'
 
-// import { graphErrorMessageState, graphRefState, inputState } from '../../../shared'
 import { Controls } from '../Controls'
 import { ErrorMessage } from '../ErrorMessage'
 import { editorInputState, graphErrorMessageState, graphRefState } from '@shared/state'
-// import { Controls } from '../Controls'
-// import { ErrorMessage } from '../ErrorMessage'
-// import './Diagram.css'
+
+import classes from './Main.module.css'
 
 mermaid.run()
 
@@ -64,14 +60,19 @@ export function Main() {
   return (
     <main className={classes.container}>
       <TransformWrapper initialScale={3} centerZoomedOut={true} disablePadding={true}>
-        {(utils) => (
-          <>
-            <Controls {...utils} />
-            <TransformComponent>
-              <div ref={graphRef} className={classes.graph} id='container' />
-            </TransformComponent>
-          </>
-        )}
+        {({ zoomIn, zoomOut, resetTransform }) => {
+          const zoom = () => zoomIn()
+          const out = () => zoomOut()
+          const reset = () => resetTransform()
+          return (
+            <>
+              <Controls zoomIn={zoom} zoomOut={out} resetTransform={reset} />
+              <TransformComponent>
+                <div ref={graphRef} className={classes.graph} id='container' />
+              </TransformComponent>
+            </>
+          )
+        }}
       </TransformWrapper>
       <ErrorMessage />
     </main>

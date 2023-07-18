@@ -1,14 +1,18 @@
-import { ControlButton } from './ControlButton';
+import { ControlButton } from './ControlButton'
 
-import './Controls.css';
+import classes from './Controls.module.css'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function Controls({ zoomIn, zoomOut, resetTransform }: any) {
+type Props = {
+  zoomIn: () => void
+  zoomOut: () => void
+  resetTransform: () => void
+}
+export function Controls({ zoomIn, zoomOut, resetTransform }: Props) {
   return (
-    <div className='Controls__container'>
-      <ControlButton onClick={zoomIn} icon={{ icon: 'zoomIn' }} />
-      <ControlButton onClick={resetTransform} icon={{ icon: 'zoomCenter' }} />
-      <ControlButton onClick={zoomOut} icon={{ icon: 'zoomOut' }} />
+    <div className={classes.container}>
+      <ControlButton onClick={zoomIn} icon='zoomIn' />
+      <ControlButton onClick={resetTransform} icon='zoomCenter' />
+      <ControlButton onClick={zoomOut} icon='zoomOut' />
     </div>
-  );
+  )
 }

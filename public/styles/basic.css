@@ -9,7 +9,7 @@
   --color-secondary-2: #dedede;
   --color-secondary-3: #ececec;
   --color-secondary-4: #f7f7f7;
-  --color-secondary-5: #fdfdfd; 
+  --color-secondary-5: #fdfdfd;
   --color-primary-1: #686868;
   --color-primary-2: #8e8e8e;
   --color-primary-3: #b3b3b3;
@@ -20,47 +20,19 @@
   --color-accent-4: #e2f0d7;
   --color-error-1: #ea5558;
   --color-warn-1: #f7cd37;
-  /*  --color-dark-strip-1: rgba(0, 0, 0, 0.4); */
-
   /* animations */
   --transition: all 0.112s ease-in-out;
   --transition-slow: all 0.2s ease-in-out;
+  /* shadow levels */
+  --shadow-1: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.08);
+  --shadow-2: 0 0.4rem 1rem rgba(0, 0, 0, 0.2);
 
-  /* typography */
-  /* --font-family-sans: Inter, Helvetica, SegoeUI, sans-serif; */
-  /* --headerHeight: 5rem;
-  --footerHeight: 3rem;
-  --mainHeight: calc(100% - var(--headerHeight) - var(--footerHeight));
-  --font-family-sans: 'Noto Sans', Helvetica, SegoeUI, sans-serif;
-  --font-family-serif: 'PT Serif', serif; */
-  /*
-
-  /* Shadow levels */
-  /* --shadow-accent-2: 0 0.1rem 1rem 0 #94c76a44;
-  --shadow-primary-4: 0 0.1rem 1rem 0 #e1e1e144; */
-  --shadow-1: 0 0.4rem 0.8rem
-  rgba(0, 0, 0, 0.08);
-  --shadow-2: 0 0.4rem 1rem
-  rgba(0, 0, 0, 0.2);
-  /* --top-shadow: 0 -.4px .8rem rgba(0, 0, 0, .08); */
-  /* --shadow_item_selection: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
-  /* --shadow-2: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.12); */
-  /* --shadow-3: 0 1.6rem 2.4rem rgba(0, 0, 0, .12); */
-  /* --shadow-4: 0 .2.4rem 3.2rem rgba(0, 0, 0, .12); */
-  /* --font-regular: 400 1.6rem var(--font-family-sans); */
-  /* --font-smaller: 300 1.4rem var(--font-family-sans); */
-  /* --border-primary-4: 0.1rem solid var(--color-primary-4); */
-  /* --border-accent-2: 0.1rem solid var(--color-accent-2);  */
   --radius: .2rem;
-  --border-active: 0.1rem solid
-  var(--color-accent-1);
+  --border-active: 0.1rem solid var(--color-accent-1);
   --border-passive: 0.1rem solid transparent;
-  --border: .1rem solid
-  vaR(--color-primary-4);
-  --divider: 0.1rem solid
-  var(--color-primary-3);
-  --font:
-  'Noto Sans', sans-serif;
+  --border: .1rem solid  var(--color-primary-4);
+  --divider: 0.1rem solid var(--color-primary-3);
+  --font-family: 'Noto Sans', sans-serif;
 }
 
 * {
@@ -75,9 +47,9 @@ html {
 }
 
 body {
-  font-family: var(--font);
+  font-family: var(--font-family);
   background-color: var(--color-back);
-  color: var(--color-text); 
+  color: var(--color-text);
 }
 
 #root {

@@ -8,4 +8,5 @@
     'editor-main';
   grid-template-columns: auto;
   grid-template-rows: 5rem auto;
+  border-right: var(--border);
 }

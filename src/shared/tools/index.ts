@@ -1,1 +1,1 @@
-export * from './string.tools';
+export * from "./string.tools";

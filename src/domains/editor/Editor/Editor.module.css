@@ -3,10 +3,8 @@
   height: 100%;
   display: grid;
   grid-area: editor-main;
-  background-color: pink;
-  /* grid-template-areas:
-    'editor-header'
-    'editor-main';
-  grid-template-columns: auto;
-  grid-template-rows: 5rem auto; */
+}
+
+.loader {
+  place-self: center;
 }

@@ -1,6 +1,6 @@
-import { atom } from 'recoil'
+import { atom } from "recoil";
 
 export const editorInputState = atom<string>({
-  key: 'editorInputState',
-  default: '',
-})
+	key: "editorInputState",
+	default: "",
+});

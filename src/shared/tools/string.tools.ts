@@ -1,5 +1,5 @@
 export function makeMarkdown(v: string): string {
-  return `
+	return `
 \`\`\`mermaid
 ${v}
 \`\`\`

@@ -1,44 +1,46 @@
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue } from "recoil";
 
-import { Button } from '@shared/components'
-import { graphErrorMessageState, graphRefState } from '@shared/state'
+import { Button } from "@shared/components";
+import { graphErrorMessageState, graphRefState } from "@shared/state";
 
 export function DownloadAsSVG() {
-  const graphRef = useRecoilValue(graphRefState)
+	const graphRef = useRecoilValue(graphRefState);
 
-  const message = useRecoilValue(graphErrorMessageState)
+	const message = useRecoilValue(graphErrorMessageState);
 
-  async function handleClick() {
-    if (!graphRef) return
+	async function handleClick() {
+		if (!graphRef) return;
 
-    const svg = graphRef.getElementsByTagName('svg')[0]
+		const svg = graphRef.getElementsByTagName("svg")[0];
 
-    const link = document.createElement('a')
+		const link = document.createElement("a");
 
-    const serializer = new XMLSerializer()
+		const serializer = new XMLSerializer();
 
-    const file = new Blob([serializer.serializeToString(svg)], { type: 'text/plain' })
+		const file = new Blob([serializer.serializeToString(svg)], {
+			type: "text/plain",
+		});
 
-    if (typeof link.download === 'string') {
-      link.href = URL.createObjectURL(file)
-      link.download = 'diagram.svg'
+		if (typeof link.download === "string") {
+			link.href = URL.createObjectURL(file);
+			link.download = "diagram.svg";
 
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-    } else {
-      window.open(String(svg))
-    }
-  }
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		} else {
+			window.open(String(svg));
+		}
+	}
 
-  return (
-    <Button
-      iconFill
-      isDisabled={!graphRef || Boolean(message)}
-      onClick={handleClick}
-      // tooltip='Download diagram as SVG'
-      label='SVG'
-      icon='svg'
-    />
-  )
+	return (
+		<Button
+			iconFill
+			isDisabled={!graphRef || Boolean(message)}
+			onClick={handleClick}
+			// tooltip='Download diagram as SVG'
+			label="SVG"
+			icon="svg"
+		/>
+	);
 }

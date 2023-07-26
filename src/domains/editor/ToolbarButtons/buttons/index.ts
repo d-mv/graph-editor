@@ -1,3 +1,3 @@
-export * from './Docs'
-export * from './FontSize'
-export * from './SaveToUrl'
+export * from "./Docs";
+export * from "./FontSize";
+export * from "./SaveToUrl";

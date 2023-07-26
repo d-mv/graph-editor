@@ -1,1 +1,1 @@
-export * from './SidePanelOpenToggle'
+export * from "./SidePanelOpenToggle";

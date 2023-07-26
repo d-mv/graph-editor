@@ -1,15 +1,22 @@
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue } from "recoil";
 
-import { Button } from '@shared/components'
-import { editorInputState } from '@shared/state'
-import { makeMarkdown } from '@shared/tools'
+import { Button } from "@shared/components";
+import { editorInputState } from "@shared/state";
+import { makeMarkdown } from "@shared/tools";
 
 export function CopyMarkdown() {
-  const value = useRecoilValue(editorInputState)
+	const value = useRecoilValue(editorInputState);
 
-  function handleClick() {
-    navigator.clipboard.writeText(makeMarkdown(value))
-  }
+	function handleClick() {
+		navigator.clipboard.writeText(makeMarkdown(value));
+	}
 
-  return <Button isDisabled={!value} onClick={handleClick} label='copy markdown' icon='markdown' />
+	return (
+		<Button
+			isDisabled={!value}
+			onClick={handleClick}
+			label="copy markdown"
+			icon="markdown"
+		/>
+	);
 }

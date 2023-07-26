@@ -1,6 +1,6 @@
-import { atom } from 'recoil'
+import { atom } from "recoil";
 
 export const sidePanelIsOpenState = atom<boolean>({
-  key: 'sidePanelIsOpenState',
-  default: true,
-})
+	key: "sidePanelIsOpenState",
+	default: true,
+});

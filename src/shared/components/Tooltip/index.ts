@@ -1,3 +1,3 @@
-export * from './TooltipContent';
+export * from "./TooltipContent";
 
-export * from './WithTooltip';
+export * from "./WithTooltip";

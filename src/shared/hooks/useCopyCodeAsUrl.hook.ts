@@ -1,28 +1,35 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue } from "recoil";
 
-import { editorInputState, fontSizeState } from '../state'
+import {
+	editorInputState,
+	fontSizeState,
+	sidePanelIsOpenState,
+} from "../state";
 
 export function useCopyCodeAsUrl() {
-  const value = useRecoilValue(editorInputState)
+	const value = useRecoilValue(editorInputState);
+	const sidePanelIsOpen = useRecoilValue(sidePanelIsOpenState);
 
-  const fontSize = useRecoilValue(fontSizeState);
+	const fontSize = useRecoilValue(fontSizeState);
 
-  function copy() {
-    const location = window.location.origin;
+	function copy() {
+		const location = window.location.origin;
 
-    const base64Value = btoa(value);
+		const base64Value = btoa(value);
 
-    const url = `${location}?fontSize=${fontSize}&code=${base64Value}`;
+		let url = `${location}?fontSize=${fontSize}&code=${base64Value}`;
 
-    navigator.clipboard.writeText(url);
-    return url;
-  }
+		if (!sidePanelIsOpen) url = `${url}&mode=preview`;
 
-  function copyNsave() {
-    const url = copy();
+		navigator.clipboard.writeText(url);
+		return url;
+	}
 
-    window.history.pushState({}, '', url);
-  }
+	function copyNsave() {
+		const url = copy();
 
-  return { copy, copyNsave };
+		window.history.pushState({}, "", url);
+	}
+
+	return { copy, copyNsave };
 }

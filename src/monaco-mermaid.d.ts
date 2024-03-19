@@ -1,1 +1,1 @@
-declare module "monaco-mermaid";
+declare module "monaco-mermaid"

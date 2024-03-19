@@ -1,34 +1,40 @@
-import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useEffect, useState } from "react"
+import { useRecoilValue } from "recoil"
 
-import { LINKS_DICTIONARY } from "../linksDictionary.data";
-import { ButtonWithIcon, WithTooltip } from "@shared/components";
-import { editorInputState } from "@shared/state";
+import { ButtonWithIcon, WithTooltip } from "@shared/components"
+import { Idiom, editorInputState, idiomState } from "@shared/state"
+import { LINKS_DICTIONARY } from "../linksDictionary.data"
 
 export function Docs() {
-	const value = useRecoilValue(editorInputState);
+  const value = useRecoilValue(editorInputState)
 
-	const [section, setSection] = useState("");
+  const idiom = useRecoilValue(idiomState)
 
-	useEffect(() => {
-		if (value) {
-			const s = value.split("\n")[0].trim();
+  const [section, setSection] = useState("")
 
-			if (s && s !== section) setSection(s);
-		} else {
-			if (section) setSection("");
-		}
-	}, [section, value]);
+  useEffect(() => {
+    if (value) {
+      const s = value.split("\n")[0].trim()
 
-	return (
-		<WithTooltip tooltip={`Mermaid docs${section ? ` ${section}` : ""}`}>
-			<ButtonWithIcon
-				asAnchor
-				href={`https://mermaid.js.org/${LINKS_DICTIONARY[section]}`}
-				icon="docs"
-			>
-				docs
-			</ButtonWithIcon>
-		</WithTooltip>
-	);
+      if (s && s !== section) setSection(s)
+    } else {
+      if (section) setSection("")
+    }
+  }, [section, value])
+
+  return (
+    <WithTooltip tooltip={`Mermaid docs${section ? ` ${section}` : ""}`}>
+      <ButtonWithIcon
+        asAnchor
+        href={
+          idiom === Idiom.MERMAID
+            ? `https://mermaid.js.org/${LINKS_DICTIONARY[section]}`
+            : "https://plantuml.com/news"
+        }
+        icon="docs"
+      >
+        docs
+      </ButtonWithIcon>
+    </WithTooltip>
+  )
 }

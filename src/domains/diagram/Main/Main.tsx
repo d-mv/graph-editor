@@ -1,88 +1,121 @@
-import { AnyValue } from "@mv-d/toolbelt";
-import mermaid from "mermaid";
-import { useCallback, useEffect, useRef } from "react";
-import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
+import { AnyValue } from "@mv-d/toolbelt"
+import clsx from "clsx"
+import mermaid from "mermaid"
+import plantUmlEncoder from "plantuml-encoder-decoder"
+import { useCallback, useEffect, useMemo, useRef } from "react"
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch"
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil"
 
-import { Controls } from "../Controls";
-import { ErrorMessage } from "../ErrorMessage";
 import {
+	Idiom,
 	editorInputState,
 	graphErrorMessageState,
 	graphRefState,
-} from "@shared/state";
+	idiomState
+} from "@shared/state"
+import { Controls } from "../Controls"
+import { ErrorMessage } from "../ErrorMessage"
 
-import classes from "./Main.module.css";
+import classes from "./Main.module.css"
 
-mermaid.run();
+mermaid.run()
 
 export function Main() {
-	const value = useRecoilValue(editorInputState);
+  const value = useRecoilValue(editorInputState)
 
-	const setGraphRef = useSetRecoilState(graphRefState);
+  const idiom = useRecoilValue(idiomState)
 
-	const graphRef = useRef<HTMLDivElement>(null);
+  const isMermaid = useMemo(() => idiom === Idiom.MERMAID, [idiom])
 
-	const setMessage = useSetRecoilState(graphErrorMessageState);
+  const setGraphRef = useSetRecoilState(graphRefState)
 
-	const clearErrorMessage = useResetRecoilState(graphErrorMessageState);
+  const graphRef = useRef<HTMLDivElement>(null)
 
-	const handleErrorMessage = useCallback(
-		(err: AnyValue) => {
-			setMessage(err.message);
-		},
-		[setMessage],
-	);
+  const mainRef = useRef<HTMLDivElement>(null)
 
-	useEffect(() => {
-		mermaid.setParseErrorHandler(handleErrorMessage);
-	}, [handleErrorMessage]);
+  const setMessage = useSetRecoilState(graphErrorMessageState)
 
-	useEffect(() => {
-		if (graphRef.current) setGraphRef(graphRef.current);
-	}, [setGraphRef]);
+  const clearErrorMessage = useResetRecoilState(graphErrorMessageState)
 
-	useEffect(() => {
-		async function renderDiagram() {
-			clearErrorMessage();
+  const handleErrorMessage = useCallback(
+    (err: AnyValue) => {
+      setMessage(err.message)
+    },
+    [setMessage]
+  )
 
-			mermaid.contentLoaded();
+  useEffect(() => {
+    mermaid.setParseErrorHandler(handleErrorMessage)
+  }, [handleErrorMessage])
 
-			const svg = graphRef.current;
+  useEffect(() => {
+    if (graphRef.current) setGraphRef(graphRef.current)
+  }, [setGraphRef])
 
-			if (svg) {
-				const result = await mermaid.render("mermaid", value, svg);
+  useEffect(() => {
+    async function renderMermaidDiagram() {
+      clearErrorMessage()
 
-				svg.innerHTML = result.svg;
-			}
-		}
+      mermaid.contentLoaded()
 
-		if (value) renderDiagram();
-		else clearErrorMessage();
-	}, [clearErrorMessage, value]);
+      const svg = graphRef.current
 
-	return (
-		<main className={classes.container}>
-			<TransformWrapper
-				initialScale={3}
-				centerZoomedOut={true}
-				disablePadding={true}
-			>
-				{({ zoomIn, zoomOut, resetTransform }) => {
-					const zoom = () => zoomIn();
-					const out = () => zoomOut();
-					const reset = () => resetTransform();
-					return (
-						<>
-							<Controls zoomIn={zoom} zoomOut={out} resetTransform={reset} />
-							<TransformComponent>
-								<div ref={graphRef} className={classes.graph} id="container" />
-							</TransformComponent>
-						</>
-					);
-				}}
-			</TransformWrapper>
-			<ErrorMessage />
-		</main>
-	);
+      if (svg) {
+        const result = await mermaid.render("mermaid", value, svg)
+
+        svg.innerHTML = result.svg
+      }
+    }
+
+    async function renderPlantUmlDiagram() {
+      const encoded = plantUmlEncoder.encode(value)
+
+      const url = "http://www.plantuml.com/plantuml/svg/" + encoded
+
+      const result = await fetch(url)
+
+      const svgString = await result.text()
+
+      const svg = graphRef.current
+
+      if (svg) {
+        const se = svgString.split('<?xml version="1.0" encoding="us-ascii" standalone="no"?>')[1]
+
+        svg.innerHTML = se
+      }
+    }
+
+    if (value) {
+      if (isMermaid) renderMermaidDiagram()
+      else renderPlantUmlDiagram()
+    } else clearErrorMessage()
+  }, [clearErrorMessage, value])
+
+  return (
+    <main ref={mainRef} className={classes.container}>
+      <TransformWrapper initialScale={3} centerZoomedOut={true} disablePadding={true}>
+        {({ zoomIn, zoomOut, resetTransform }) => {
+          const zoom = () => zoomIn()
+
+          const out = () => zoomOut()
+
+          const reset = () => resetTransform()
+
+          return (
+            <>
+              <Controls zoomIn={zoom} zoomOut={out} resetTransform={reset} />
+              <TransformComponent>
+                <div
+                  ref={graphRef}
+                  className={clsx(classes.graph, !isMermaid && classes.plantuml)}
+                  id="container"
+                />
+              </TransformComponent>
+            </>
+          )
+        }}
+      </TransformWrapper>
+      <ErrorMessage />
+    </main>
+  )
 }

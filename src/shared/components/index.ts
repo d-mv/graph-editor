@@ -7,3 +7,4 @@ export * from "./Tooltip";
 export * from "./Button";
 export * from "./ButtonLike";
 export * from "./ButtonWithIcon";
+export * from './IdiomToggle';

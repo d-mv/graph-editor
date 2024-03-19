@@ -1,81 +1,100 @@
-import { Optional, ifTrue } from "@mv-d/toolbelt";
-import * as monaco from "monaco-editor";
-import initEditor from "monaco-mermaid";
-import { useCallback, useEffect, useRef } from "react";
-import { PacmanLoader } from "react-spinners";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { Optional, ifTrue } from "@mv-d/toolbelt"
+import { PUmlExtension } from "@sinm/monaco-plantuml"
+import PUmlWorker from "@sinm/monaco-plantuml/lib/puml.worker?worker"
+import * as monaco from "monaco-editor"
+import initEditor from "monaco-mermaid"
+import { useCallback, useEffect, useMemo, useRef } from "react"
+import { PacmanLoader } from "react-spinners"
+import { useRecoilState, useRecoilValue } from "recoil"
 
 import {
+	Idiom,
 	editorInputState,
 	fontSizeState,
+	idiomState,
 	isInitState,
-	isLoadingState,
-} from "@shared/state";
+	isLoadingState
+} from "@shared/state"
 
-import classes from "./Editor.module.css";
+import classes from "./Editor.module.css"
 
-initEditor(monaco);
+initEditor(monaco)
+
+const worker = new PUmlWorker()
+
+const extension = new PUmlExtension(worker)
 
 export function Editor() {
-	const [value, setValue] = useRecoilState(editorInputState);
-	const fontSize = useRecoilValue(fontSizeState);
-	const isInit = useRecoilValue(isInitState);
-	const isLoading = useRecoilValue(isLoadingState);
+  const [value, setValue] = useRecoilState(editorInputState)
 
-	const editor = useRef<Optional<monaco.editor.IStandaloneCodeEditor>>();
-	const divEl = useRef<HTMLDivElement>(null);
+  const idiom = useRecoilValue(idiomState)
 
-	const updateValue = useCallback(() => {
-		const newValue = editor.current?.getValue() ?? "";
+  const isMermaid = useMemo(() => idiom === Idiom.MERMAID, [idiom])
 
-		setValue(newValue);
-	}, [setValue]);
+  const fontSize = useRecoilValue(fontSizeState)
 
-	useEffect(() => {
-		editor.current?.updateOptions({ fontSize });
-		editor.current?.render(true);
-	}, [fontSize]);
+  const isInit = useRecoilValue(isInitState)
 
-	// rome-ignore lint/nursery/useExhaustiveDependencies: reduce re-renders
-	useEffect(() => {
-		if (isLoading) return;
+  const isLoading = useRecoilValue(isLoadingState)
 
-		if (isInit && divEl.current && !editor.current) {
-			editor.current = monaco.editor.create(divEl.current, {
-				fontFamily: "Fira Code, monospace",
-				fontLigatures: true,
-				fontSize,
-				language: "mermaid",
-				lineNumbers: "on",
-				minimap: { enabled: false },
-				overviewRulerLanes: 0,
-				renderLineHighlight: "line",
-				roundedSelection: false,
-				scrollBeyondLastLine: false,
-				selectionHighlight: true,
-				theme: "mermaid",
-				value,
-				scrollbar: {
-					verticalScrollbarSize: 10,
-					horizontalScrollbarSize: 10,
-				},
-			});
+  const editor = useRef<Optional<monaco.editor.IStandaloneCodeEditor>>()
 
-			editor.current.onDidChangeModelContent(updateValue);
-		}
+  const divEl = useRef<HTMLDivElement>(null)
 
-		return () => {
-			editor.current?.dispose();
-			editor.current = null;
-		};
-	}, [isLoading, isInit]);
+  const updateValue = useCallback(() => {
+    const newValue = editor.current?.getValue() ?? ""
 
-	return (
-		<div ref={divEl} className={classes.container}>
-			{ifTrue(
-				isLoading,
-				<PacmanLoader className={classes.loader} color="#006bdb" />,
-			)}
-		</div>
-	);
+    setValue(newValue)
+  }, [setValue])
+
+  useEffect(() => {
+    editor.current?.updateOptions({ fontSize })
+    editor.current?.render(true)
+  }, [fontSize])
+
+  // rome-ignore lint/nursery/useExhaustiveDependencies: reduce re-renders
+  useEffect(() => {
+    if (isLoading) return
+
+    let extensionDisposer: Optional<monaco.IDisposable> = null
+
+    if (isInit && divEl.current && !editor.current) {
+      editor.current = monaco.editor.create(divEl.current, {
+        fontFamily: "Fira Code, monospace",
+        fontLigatures: true,
+        fontSize,
+        language: isMermaid ? "mermaid" : "plantuml",
+        lineNumbers: "on",
+        minimap: { enabled: false },
+        overviewRulerLanes: 0,
+        renderLineHighlight: "line",
+        roundedSelection: false,
+        scrollBeyondLastLine: false,
+        selectionHighlight: true,
+        theme: isMermaid ? "mermaid" : "",
+        value,
+        scrollbar: {
+          verticalScrollbarSize: 10,
+          horizontalScrollbarSize: 10
+        }
+      })
+
+      if (!isMermaid) extensionDisposer = extension.active(editor.current)
+
+      editor.current.onDidChangeModelContent(updateValue)
+    }
+
+    return () => {
+      editor.current?.dispose()
+      editor.current = null
+
+      if (extensionDisposer) extensionDisposer.dispose()
+    }
+  }, [isLoading, isInit, idiom])
+
+  return (
+    <div ref={divEl} className={classes.container}>
+      {ifTrue(isLoading, <PacmanLoader className={classes.loader} color="#006bdb" />)}
+    </div>
+  )
 }

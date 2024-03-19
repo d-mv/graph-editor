@@ -1,85 +1,96 @@
-import { isNilOrEmpty } from "@mv-d/toolbelt";
+import { isNilOrEmpty } from "@mv-d/toolbelt"
 import {
+	Idiom,
 	editorInputState,
 	fontSizeState,
+	idiomState,
 	isInitState,
 	isLoadingState,
-	sidePanelIsOpenState,
-} from "@shared/state";
-import { useEffect } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+	sidePanelIsOpenState
+} from "@shared/state"
+import { useEffect } from "react"
+import { useRecoilState, useSetRecoilState } from "recoil"
 
 export function useOptionsFromUrl() {
-	const setValue = useSetRecoilState(editorInputState);
-	const setFontSize = useSetRecoilState(fontSizeState);
-	const [isInit, setIsInit] = useRecoilState(isInitState);
-	const setSidePanelIsOpen = useSetRecoilState(sidePanelIsOpenState);
-	const setIsLoading = useSetRecoilState(isLoadingState);
+  const setValue = useSetRecoilState(editorInputState)
 
-	async function getFromSourceLink(url: string) {
-		setIsLoading(true);
-		fetch(url)
-			.then((res) => res.text())
-			.then((text) => {
-				setValue(text);
-			})
-			.catch((e) => {
-				// eslint-disable-next-line no-console
-				console.error(e);
-			})
-			.finally(() => {
-				setIsLoading(false);
-				setIsInit(true);
-			});
-	}
-	function updateCodeState() {
-		try {
-			const decodedValue = atob(window.location.href.split("code=")[1]);
+  const setFontSize = useSetRecoilState(fontSizeState)
 
-			setValue(decodedValue);
-		} catch (err) {
-			// eslint-disable-next-line no-console
-			console.error(err);
-			return "";
-		} finally {
-			setIsInit(true);
-		}
-	}
+  const [idiom, setIdiom] = useRecoilState(idiomState)
 
-	// parse the settings from the url
-	function initialize() {
-		const url = new URL(window.location.href);
+  const [isInit, setIsInit] = useRecoilState(isInitState)
 
-		const fontSize = url.searchParams.get("fontSize");
+  const setSidePanelIsOpen = useSetRecoilState(sidePanelIsOpenState)
 
-		if (fontSize) {
-			const sizeFromUrl = Number(fontSize);
+  const setIsLoading = useSetRecoilState(isLoadingState)
 
-			if (!isNilOrEmpty(sizeFromUrl) || !isNaN(sizeFromUrl))
-				setFontSize(sizeFromUrl);
-		}
+  async function getFromSourceLink(url: string) {
+    setIsLoading(true)
+    fetch(url)
+      .then((res) => res.text())
+      .then((text) => setValue(text))
+      .catch((e) => {
+        // eslint-disable-next-line no-console -- temporary
+        console.error(e)
+      })
+      .finally(() => {
+        setIsLoading(false)
+        setIsInit(true)
+      })
+  }
 
-		const mode = url.searchParams.get("mode");
+  function updateCodeState() {
+    try {
+      const decodedValue = atob(window.location.href.split("code=")[1])
 
-		if (mode === "preview") setSidePanelIsOpen(false);
+      setValue(decodedValue)
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err)
+      return ""
+    } finally {
+      setIsInit(true)
+    }
+  }
 
-		const code = url.searchParams.get("code");
+  // parse the settings from the url
+  function initialize() {
+    const url = new URL(window.location.href)
 
-		const fromSourceLink = url.searchParams.get("url");
-		if (fromSourceLink) getFromSourceLink(fromSourceLink);
-		else if (code) updateCodeState();
-		else {
-			setIsInit(true);
-		}
-	}
+    const fontSize = url.searchParams.get("fontSize")
 
-	useEffect(() => {
-		if (!isInit) initialize();
+    if (fontSize) {
+      const sizeFromUrl = Number(fontSize)
 
-		window.addEventListener("popstate", initialize);
+      if (!isNilOrEmpty(sizeFromUrl) || !isNaN(sizeFromUrl)) setFontSize(sizeFromUrl)
+    }
 
-		return () => {
-			window.removeEventListener("popstate", initialize);
-		};
-	}, [isInit]);
+    const mode = url.searchParams.get("mode")
+
+    if (mode === "preview") setSidePanelIsOpen(false)
+
+    const code = url.searchParams.get("code")
+
+    const sourceIdiom = url.searchParams.get("idiom")
+
+    if (sourceIdiom && sourceIdiom !== idiom) setIdiom(sourceIdiom as Idiom)
+
+    const fromSourceLink = url.searchParams.get("url")
+
+    if (fromSourceLink) getFromSourceLink(fromSourceLink)
+    else if (code) updateCodeState()
+    else {
+      setIsInit(true)
+    }
+  }
+
+  useEffect(() => {
+    if (!isInit) initialize()
+
+    window.addEventListener("popstate", initialize)
+
+    return () => {
+      window.removeEventListener("popstate", initialize)
+    }
+  }, [isInit])
 }

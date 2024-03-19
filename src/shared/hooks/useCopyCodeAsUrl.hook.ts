@@ -1,35 +1,34 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil"
 
-import {
-	editorInputState,
-	fontSizeState,
-	sidePanelIsOpenState,
-} from "../state";
+import { editorInputState, fontSizeState, idiomState, sidePanelIsOpenState } from "../state"
 
 export function useCopyCodeAsUrl() {
-	const value = useRecoilValue(editorInputState);
-	const sidePanelIsOpen = useRecoilValue(sidePanelIsOpenState);
+  const value = useRecoilValue(editorInputState)
 
-	const fontSize = useRecoilValue(fontSizeState);
+  const sidePanelIsOpen = useRecoilValue(sidePanelIsOpenState)
 
-	function copy() {
-		const location = window.location.origin;
+  const idiom = useRecoilValue(idiomState)
 
-		const base64Value = btoa(value);
+  const fontSize = useRecoilValue(fontSizeState)
 
-		let url = `${location}?fontSize=${fontSize}&code=${base64Value}`;
+  function copy() {
+    const location = window.location.origin
 
-		if (!sidePanelIsOpen) url = `${url}&mode=preview`;
+    const base64Value = btoa(value)
 
-		navigator.clipboard.writeText(url);
-		return url;
-	}
+    let url = `${location}?fontSize=${fontSize}&idiom=${idiom}&code=${base64Value}`
 
-	function copyNsave() {
-		const url = copy();
+    if (!sidePanelIsOpen) url = `${url}&mode=preview`
 
-		window.history.pushState({}, "", url);
-	}
+    navigator.clipboard.writeText(url)
+    return url
+  }
 
-	return { copy, copyNsave };
+  function copyNsave() {
+    const url = copy()
+
+    window.history.pushState({}, "", url)
+  }
+
+  return { copy, copyNsave }
 }

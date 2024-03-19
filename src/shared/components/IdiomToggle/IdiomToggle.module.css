@@ -1,0 +1,35 @@
+.container {
+	display: flex;
+
+	button {
+	align-items: center;
+		background-color: var(--idiom-button-background-color);
+		border: .1rem solid var(--idiom-button-border-color);
+		display: flex;
+		padding: .5rem 1rem;
+	}
+
+	& p {
+		color: var(--idiom-button-color);
+    font-family: var(--font-family);
+		font-size: 1.5rem;
+    font-weight: 600;
+    user-select: none}
+
+  img {
+		height: 1.4rem;
+		margin-inline-end: 1rem;
+		width: 1.4rem;
+	}
+}
+
+.regular {
+	--idiom-button-border-color: var(--color-primary-4);
+	--idiom-button-background-color: var(--color-primary-4);
+	--idiom-button-color: var(--color-primary-1);
+}
+
+.selected {
+	--idiom-button-border-color: var(--color-accent-1);
+	--idiom-button-background-color: var(--color-accent-4);
+}

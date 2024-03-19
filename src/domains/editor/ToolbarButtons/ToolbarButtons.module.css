@@ -1,16 +1,17 @@
 .container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  grid-area: toolbar;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
   align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  grid-area: toolbar;
+  height: 100%;
+  justify-content: flex-start;
+  width: 100%;
+
   > * {
-    margin-inline-start: 2rem;
+    margin-inline-start: 1.4rem;
   }
 
   > *:first-child {
-    margin-inline-start: 0rem;
+    margin-inline-start: 0;
   }
 }

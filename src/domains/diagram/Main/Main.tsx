@@ -7,11 +7,11 @@ import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch"
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil"
 
 import {
-	Idiom,
-	editorInputState,
-	graphErrorMessageState,
-	graphRefState,
-	idiomState
+  Idiom,
+  editorInputState,
+  graphErrorMessageState,
+  graphRefState,
+  idiomState
 } from "@shared/state"
 import { Controls } from "../Controls"
 import { ErrorMessage } from "../ErrorMessage"
@@ -70,11 +70,18 @@ export function Main() {
     async function renderPlantUmlDiagram() {
       const encoded = plantUmlEncoder.encode(value)
 
-      const url = "http://www.plantuml.com/plantuml/svg/" + encoded
+      const url = "https://www.plantuml.com/plantuml/svg/" + encoded
 
-      const result = await fetch(url)
+      let svgString = ""
 
-      const svgString = await result.text()
+      try {
+        const result = await fetch(url)
+
+        svgString = await result.text()
+      } catch (err) {
+        // eslint-disable-next-line no-console -- TODO: replace with logger
+        console.log(err)
+      }
 
       const svg = graphRef.current
 
